@@ -1,21 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Fragment, useState } from 'react';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, Icon, IconRegistry, Layout } from '@ui-kitten/components';
+import { NavBar } from './Components/NavBar'
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import theme from './assets/custom-theme.json'
+import { TabViewLazyLoadingShowcase } from './Components/TabView'
+//import Toggle from 'react-native-toggle-element';
 
-export default function App() {
+
+
+const ToggleButton = (props) => (
+  <Toggle
+    value={props.value}
+    onPress={props.setValue}
+    trackBar={{
+      width: 40,
+      height: 20,
+      radius: 25,
+      activeBackgroundColor:'#ffffff',
+      inActiveBackgroundColor:'#d3d3d3'
+    }}
+    thumbButton={{
+      width: 20,
+      height: 22,
+      radius: 25,
+      activeBackgroundColor:'#ffffff',
+      inActiveBackgroundColor:'#000000'
+    }}
+    thumbActiveComponent={ <Icon name="sun" width="20" height="22" fill={'#f4b912'} />}
+    thumbInActiveComponent={ <Icon name="moon" width="20" height="22" fill={'#ffffff'} />}
+  />
+);
+
+
+
+const App = () => {
+  const [value, setValue] = useState(false);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Fragment>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={{ ...value ? eva.dark : eva.light, ...theme }}>
+        <Layout style={{ paddingVertical: 20, flex: 1,}}>
+          <NavBar title="Transcaribe" />
+          <TabViewLazyLoadingShowcase />
+        </Layout>
+      </ApplicationProvider>
+    </Fragment>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
