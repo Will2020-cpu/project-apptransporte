@@ -1,18 +1,25 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { Autocomplete, AutocompleteItem, Icon, Layout } from '@ui-kitten/components';
+import { Autocomplete, AutocompleteItem, Icon } from '@ui-kitten/components';
 
+const movies = [
+  { title: 'Star Wars' },
+  { title: 'Back to the Future' },
+  { title: 'The Matrix' },
+  { title: 'Inception' },
+  { title: 'Interstellar' },
+];
 
 const filter = (item, query) => item.title.toLowerCase().includes(query.toLowerCase());
 
 const StarIcon = (props) => (
-  <Icon {...props} name='pin-outline' />
+  <Icon {...props} name='bus'pack="fontawesome"/>
 );
 
-export const AutocompleteAccessoriesShowcase = (props) => {
+export const AutocompleteAccessoriesShowcase = () => {
 
   const [value, setValue] = React.useState(null);
-  const [data, setData] = React.useState(props.items);
+  const [data, setData] = React.useState(movies);
 
   const onSelect = (index) => {
     setValue(data[index].title);
@@ -20,12 +27,12 @@ export const AutocompleteAccessoriesShowcase = (props) => {
 
   const onChangeText = (query) => {
     setValue(query);
-    setData(props.items.filter(item => filter(item, query)));
+    setData(movies.filter(item => filter(item, query)));
   };
 
   const clearInput = () => {
     setValue('');
-    setData(props.items);
+    setData(movies);
   };
 
   const renderOption = (item, index) => (
@@ -38,20 +45,18 @@ export const AutocompleteAccessoriesShowcase = (props) => {
 
   const renderCloseIcon = (props) => (
     <TouchableWithoutFeedback onPress={clearInput}>
-      <Icon {...props} name='close' />
+      <Icon {...props} name='close'/>
     </TouchableWithoutFeedback>
   );
 
   return (
     <Autocomplete
-      placeholder='Ej. CENTRO'
+      placeholder='Place your Text'
       value={value}
       accessoryRight={renderCloseIcon}
       onChangeText={onChangeText}
       onSelect={onSelect}>
-      <Layout style={{marginTop:10}}>
-        {data.map(renderOption)}
-      </Layout>
+      {data.map(renderOption)}
     </Autocomplete>
   );
 };

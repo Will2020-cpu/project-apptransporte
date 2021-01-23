@@ -1,49 +1,28 @@
+// Importaciones de Librerias
 import React, { Fragment, useState } from 'react';
+import 'react-native-gesture-handler';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Icon, IconRegistry, Layout } from '@ui-kitten/components';
-import { NavBar } from './Components/NavBar'
+import { NavigationContainer} from '@react-navigation/native';
+
+//Importacion del Tema y Iconos
 import theme from './assets/custom-theme.json'
-import { TabViewLazyLoadingShowcase } from './Components/TabView'
-//import Toggle from 'react-native-toggle-element';
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import { MaterialIconsPack } from './material-icons'
 
-
-const ToggleButton = (props) => (
-  <Toggle
-    value={props.value}
-    onPress={props.setValue}
-    trackBar={{
-      width: 40,
-      height: 20,
-      radius: 25,
-      activeBackgroundColor:'#ffffff',
-      inActiveBackgroundColor:'#d3d3d3'
-    }}
-    thumbButton={{
-      width: 20,
-      height: 22,
-      radius: 25,
-      activeBackgroundColor:'#ffffff',
-      inActiveBackgroundColor:'#000000'
-    }}
-    thumbActiveComponent={ <Icon name="sun" width="20" height="22" fill={'#f4b912'} pack="eva"/>}
-    thumbInActiveComponent={ <Icon name="moon" width="20" height="22" fill={'#ffffff'} pack="eva"/>}
-  />
-);
-
+//Importacion de rutas
+import { RootNavigator } from './routes/Main'
 
 
 const App = () => {
   const [value, setValue] = useState(false);
   return (
     <Fragment>
-      <IconRegistry icons={[EvaIconsPack,MaterialIconsPack]} />
+      <IconRegistry icons={[EvaIconsPack, MaterialIconsPack]} />
       <ApplicationProvider {...eva} theme={{ ...value ? eva.dark : eva.light, ...theme }}>
-        <Layout style={{ paddingVertical: 20, flex: 1,}}>
-          <NavBar title="Transcaribe"  />
-          <TabViewLazyLoadingShowcase />
-        </Layout>
+        <NavigationContainer>
+          <RootNavigator/>
+        </NavigationContainer>
       </ApplicationProvider>
     </Fragment>
   )

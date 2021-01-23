@@ -1,36 +1,42 @@
 import React from 'react';
-import { Button, List, ListItem, Icon } from '@ui-kitten/components';
-
-
-
+import { Button, Icon, List, ListItem } from '@ui-kitten/components';
+import { StyleSheet } from 'react-native';
 
 const data = new Array(8).fill({
-  title: 'Estacion',
-  description: 'Direccion',
+  title: 'Title for Item',
+  description: 'Description for Item',
 });
 
-export const ListAccessoriesShowcase = (props) => {
+export const ListAccessoriesShowcase = () => {
 
   const renderItemAccessory = (props) => (
-    <Button size='tiny'>Eliminar</Button>
+    <Button size='tiny'>FOLLOW</Button>
   );
 
-
+  const renderItemIcon = (props) => (
+    <Icon {...props} name='bus' pack="fontawesome"/>
+  );
 
   const renderItem = ({ item, index }) => (
     <ListItem
       title={`${item.title} ${index + 1}`}
       description={`${item.description} ${index + 1}`}
-      accessoryLeft={props.icono}
+      accessoryLeft={renderItemIcon}
       accessoryRight={renderItemAccessory}
     />
   );
 
   return (
     <List
+      style={styles.container}
       data={data}
       renderItem={renderItem}
     />
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    maxHeight: '500',
+  },
+});

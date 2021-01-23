@@ -1,42 +1,44 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native';
-import { Icon, TopNavigation, TopNavigationAction, Text, Avatar } from '@ui-kitten/components'
-//import Toggle from 'react-native-toggle-element';
-import Logo from '../assets/logotranscaribe.jpg'
+import React, { Fragment } from 'react';
+import { Icon, Layout, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 
 
 const BackIcon = (props) => (
-    <Icon {...props} name="arrow-back" />
-)
-
-const BackAction = () => (<TopNavigationAction icon={BackIcon} />)
-
-const renderTitle = (props) => (
-    <View style={styles.titleContainer}>
-        <Avatar
-            style={styles.logo}
-            source={Logo}
-        />
-        <Text {...props}>{props}</Text>
-    </View>
+    <Icon {...props} name='arrow-back' pack="eva"/>
 );
 
 
-
-const styles = StyleSheet.create({
-    titleContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    logo: {
-      marginHorizontal: 16,
-    },
-  });
-
-export const NavBar = (props) => (
-    <TopNavigation
-        title={renderTitle(props.title)}
-        accessoryRight={props.Toggle}
-    />
+const MenuIcon = (props) =>(
+    <Icon {...props} name="bars" pack="fontawesome"/>
 )
 
+
+
+export const Header = ({ scene, previous, navigation }) => {
+    const { options } = scene.descriptor
+    const title =
+    options.headerTitle !== undefined
+      ? options.headerTitle
+      : options.title !== undefined
+      ? options.title
+      : scene.route.name;
+    return (
+        <Fragment>
+           <Layout level="1" style={{marginTop:20}}>
+           {
+                previous ? (
+                    <TopNavigation
+                        accessoryLeft={() => <TopNavigationAction onPress={navigation.pop} icon={BackIcon} />}
+                        title={title}
+                    />
+                ) : (
+                    <TopNavigation
+                        alignment="center"
+                        accessoryLeft={()=> <TopNavigationAction onPress={()=>navigation.openDrawer()} icon={MenuIcon}/>}
+                        title={title}
+                    />
+                )
+            }
+           </Layout>
+        </Fragment>
+    )
+}
