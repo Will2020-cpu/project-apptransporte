@@ -2,24 +2,17 @@ import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { Autocomplete, AutocompleteItem, Icon, Layout } from '@ui-kitten/components';
 
-const movies = [
-  { title: 'Centro' },
-  { title: '4 Vientos' },
-  { title: 'Mercado' },
-  { title: 'Bomba amparo' },
-  { title: 'Interstellar' },
-];
 
 const filter = (item, query) => item.title.toLowerCase().includes(query.toLowerCase());
 
 const StarIcon = (props) => (
-  <Icon {...props} name='pin' />
+  <Icon {...props} name='pin-outline' />
 );
 
-export const AutocompleteAccessoriesShowcase = () => {
+export const AutocompleteAccessoriesShowcase = (props) => {
 
   const [value, setValue] = React.useState(null);
-  const [data, setData] = React.useState(movies);
+  const [data, setData] = React.useState(props.items);
 
   const onSelect = (index) => {
     setValue(data[index].title);
@@ -27,12 +20,12 @@ export const AutocompleteAccessoriesShowcase = () => {
 
   const onChangeText = (query) => {
     setValue(query);
-    setData(movies.filter(item => filter(item, query)));
+    setData(props.items.filter(item => filter(item, query)));
   };
 
   const clearInput = () => {
     setValue('');
-    setData(movies);
+    setData(props.items);
   };
 
   const renderOption = (item, index) => (

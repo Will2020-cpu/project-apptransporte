@@ -4,9 +4,23 @@ import { Button, Divider, Icon, Layout, Tab, TabView, Text } from '@ui-kitten/co
 import { AutocompleteAccessoriesShowcase } from './Autocomplete'
 import { ListAccessoriesShowcase } from './List'
 
-const IconMap = (props) => (
-  <Icon {...props} name="pin" />
+
+const renderItemIcon = (props) => (
+  <Icon {...props} name="pin" pack="eva"/>
+);
+
+const renderItemBusIcon = (props) =>(
+  <Icon {...props} name="bus"  pack="fontawesome"/>
 )
+
+const movies = [
+  { title: 'Centro' },
+  { title: '4 Vientos' },
+  { title: 'Mercado' },
+  { title: 'Bomba amparo' },
+  { title: 'Interstellar' },
+];
+
 
 
 export const TabViewLazyLoadingShowcase = () => {
@@ -20,28 +34,37 @@ export const TabViewLazyLoadingShowcase = () => {
       selectedIndex={selectedIndex}
       shouldLoadComponent={shouldLoadComponent}
       onSelect={index => setSelectedIndex(index)}>
+
       <Tab title='BUSCAR'>
         <Layout style={styles.tabContainer}>
           <Text category='h5'>USERS</Text>
         </Layout>
       </Tab>
+
+
       <Tab title='ESTACIONES'>
         <Layout style={styles.tabContainer}>
-          <AutocompleteAccessoriesShowcase />
+          <AutocompleteAccessoriesShowcase items={movies} />
           <Layout style={styles.buttonContainer}>
-            <Button style={styles.button} status="basic" size="small" accessoryLeft={IconMap}>Ver mapa</Button>
+            <Button style={styles.button} status="basic" size="small" accessoryLeft={renderItemIcon}>Ver mapa</Button>
             <Button style={styles.button} size="small">Localizar</Button>
           </Layout>
           <Layout style={styles.historial}>
             <Text category="h5">Historial</Text>
             <Divider />
-            <ListAccessoriesShowcase />
+            <ListAccessoriesShowcase icono={renderItemIcon}/>
           </Layout>
         </Layout>
       </Tab>
+
+
       <Tab title='RUTAS'>
         <Layout style={styles.tabContainer}>
-          <Text category='h5'>TRANSACTIONS</Text>
+          <AutocompleteAccessoriesShowcase items={movies} />
+          <Layout style={styles.historial}>
+            <Divider />
+            <ListAccessoriesShowcase icono={renderItemBusIcon}/>
+          </Layout>
         </Layout>
       </Tab>
     </TabView>
@@ -50,7 +73,7 @@ export const TabViewLazyLoadingShowcase = () => {
 
 const styles = StyleSheet.create({
   tabContainer: {
-    height:500,
+    height:600,
     paddingHorizontal: 20,
     paddingVertical: 20,
   },

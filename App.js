@@ -2,11 +2,11 @@ import React, { Fragment, useState } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Icon, IconRegistry, Layout } from '@ui-kitten/components';
 import { NavBar } from './Components/NavBar'
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import theme from './assets/custom-theme.json'
 import { TabViewLazyLoadingShowcase } from './Components/TabView'
 //import Toggle from 'react-native-toggle-element';
-
+import { EvaIconsPack } from '@ui-kitten/eva-icons'
+import { MaterialIconsPack } from './material-icons'
 
 
 const ToggleButton = (props) => (
@@ -27,8 +27,8 @@ const ToggleButton = (props) => (
       activeBackgroundColor:'#ffffff',
       inActiveBackgroundColor:'#000000'
     }}
-    thumbActiveComponent={ <Icon name="sun" width="20" height="22" fill={'#f4b912'} />}
-    thumbInActiveComponent={ <Icon name="moon" width="20" height="22" fill={'#ffffff'} />}
+    thumbActiveComponent={ <Icon name="sun" width="20" height="22" fill={'#f4b912'} pack="eva"/>}
+    thumbInActiveComponent={ <Icon name="moon" width="20" height="22" fill={'#ffffff'} pack="eva"/>}
   />
 );
 
@@ -38,10 +38,10 @@ const App = () => {
   const [value, setValue] = useState(false);
   return (
     <Fragment>
-      <IconRegistry icons={EvaIconsPack} />
+      <IconRegistry icons={[EvaIconsPack,MaterialIconsPack]} />
       <ApplicationProvider {...eva} theme={{ ...value ? eva.dark : eva.light, ...theme }}>
         <Layout style={{ paddingVertical: 20, flex: 1,}}>
-          <NavBar title="Transcaribe" />
+          <NavBar title="Transcaribe"  />
           <TabViewLazyLoadingShowcase />
         </Layout>
       </ApplicationProvider>

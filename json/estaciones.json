@@ -1,0 +1,11 @@
+[
+    {
+        "id":1,
+        "nombre":"centro",
+        "direccion":"Avenido pedro heredia",
+        "ubicacion":{
+            "coordenadasY":"190.91292",
+            "coordenadaX":"12313123123"
+        }
+    }
+]
