@@ -8,9 +8,8 @@ const BackIcon = (props) => (
 
 
 const MenuIcon = (props) =>(
-    <Icon {...props} name="bars" pack="fontawesome"/>
-)
-
+    <Icon {...props} name="menu-outline" pack="eva"/>
+);
 
 
 export const Header = ({ scene, previous, navigation }) => {
@@ -27,7 +26,7 @@ export const Header = ({ scene, previous, navigation }) => {
            {
                 previous ? (
                     <TopNavigation
-                        accessoryLeft={() => <TopNavigationAction onPress={navigation.pop} icon={BackIcon} />}
+                        accessoryLeft={() => <TopNavigationAction onPress={()=>navigation.pop()} icon={BackIcon} />}
                         title={title}
                     />
                 ) : (

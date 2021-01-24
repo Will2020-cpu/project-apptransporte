@@ -37,6 +37,7 @@ export const ListAccessoriesShowcase = () => {
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: '500',
+    maxHeight: 'auto',
+    overflow:'scroll'
   },
 });

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ImageBackground, StyleSheet } from 'react-native';
-import { Divider, Drawer, DrawerItem, Icon } from '@ui-kitten/components';
+import { Divider, Drawer, DrawerItem, Icon, Text } from '@ui-kitten/components';
 import headerImage from '../assets/recurso.jpg'
+
 
 const PersonIcon = (props) => (
   <Icon {...props} name='pin-outline' pack="eva"/>
@@ -25,7 +26,8 @@ const Header = (props) => (
   </React.Fragment>
 );
 
-export const DrawerThemingShowcase = () => {
+
+export const DrawerThemingShowcase = ({toggle}) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
@@ -45,6 +47,10 @@ export const DrawerThemingShowcase = () => {
       <DrawerItem
         title="Horarios"
         accessoryLeft={ClockIcon}
+      />
+      <DrawerItem
+        title="Modo oscuro"
+        accessoryRight={toggle}
       />
     </Drawer>
   );
