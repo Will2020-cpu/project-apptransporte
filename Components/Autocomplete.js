@@ -1,62 +1,53 @@
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
-import { Autocomplete, AutocompleteItem, Icon } from '@ui-kitten/components';
+import { Autocomplete, AutocompleteItem, Layout } from '@ui-kitten/components';
 
 const movies = [
-  { title: 'Star Wars' },
-  { title: 'Back to the Future' },
-  { title: 'The Matrix' },
-  { title: 'Inception' },
-  { title: 'Interstellar' },
+    { title: 'Star Wars' },
+    { title: 'Back to the Future' },
+    { title: 'The Matrix' },
+    { title: 'Inception' },
+    { title: 'Interstellar' },
 ];
 
 const filter = (item, query) => item.title.toLowerCase().includes(query.toLowerCase());
 
-const StarIcon = (props) => (
-  <Icon {...props} name='bus'pack="fontawesome"/>
-);
+export const AutocompleteSimpleUsageShowcase = ({ items, navigation,placeholder }) => {
 
-export const AutocompleteAccessoriesShowcase = () => {
+    const [value, setValue] = React.useState(null);
+    const [data, setData] = React.useState(items);
 
-  const [value, setValue] = React.useState(null);
-  const [data, setData] = React.useState(movies);
+    const onSelect = (index) => {
+        setValue(items[index].title);
+    };
 
-  const onSelect = (index) => {
-    setValue(data[index].title);
-  };
+    const onChangeText = (query) => {
+        setValue(query);
+        setData(items.filter(item => filter(item, query)));
+    };
 
-  const onChangeText = (query) => {
-    setValue(query);
-    setData(movies.filter(item => filter(item, query)));
-  };
+    const renderOption = (item, index) => (
+        <AutocompleteItem
+            key={index}
+            title={item.title}
+            onPress={() => navigation.push('Ruta',{
+                nombre:item.title
+            })}
+        />
+    );
 
-  const clearInput = () => {
-    setValue('');
-    setData(movies);
-  };
-
-  const renderOption = (item, index) => (
-    <AutocompleteItem
-      key={index}
-      title={item.title}
-      accessoryLeft={StarIcon}
-    />
-  );
-
-  const renderCloseIcon = (props) => (
-    <TouchableWithoutFeedback onPress={clearInput}>
-      <Icon {...props} name='close'/>
-    </TouchableWithoutFeedback>
-  );
-
-  return (
-    <Autocomplete
-      placeholder='Place your Text'
-      value={value}
-      accessoryRight={renderCloseIcon}
-      onChangeText={onChangeText}
-      onSelect={onSelect}>
-      {data.map(renderOption)}
-    </Autocomplete>
-  );
+    return (
+        <Layout>
+            <Autocomplete
+                placeholder={placeholder}
+                value={value}
+                onSelect={onSelect}
+                onChangeText={onChangeText}
+            >
+            </Autocomplete>
+            <Layout>
+                {value === '' || value === null ? null : data.map(renderOption)}
+            </Layout>
+        </Layout>
+    );
 };
+

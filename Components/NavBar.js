@@ -8,7 +8,7 @@ const BackIcon = (props) => (
 
 
 const MenuIcon = (props) =>(
-    <Icon {...props} name="menu-outline" pack="eva"/>
+    <Icon {...props} name="menu" pack="eva"/>
 );
 
 
